@@ -31,7 +31,7 @@ module Helpers
     action.promotion = promotion
     action.save
 
-    promotion.reload # so that promotion.actions is available
+    promotion.reload
 
     campaign = Spree::Campaign.create(promotion:promotion)
     coupon = Spree::Coupon.create(code: code, campaign: campaign)
