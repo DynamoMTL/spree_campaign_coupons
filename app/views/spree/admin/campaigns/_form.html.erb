@@ -1,0 +1,21 @@
+<%= render :partial => 'spree/shared/error_messages', :locals => { :target => @campaign } %>
+
+<div class='row'>
+  <div class='alpha eight columns'>
+    <%= f.field_container :title do %>
+      <%= f.label :title %>
+      <%= f.text_field :title, :class => 'fullwidth title' %>
+    <% end %>
+
+    <%= f.field_container :coupon_codes do %>
+      <%= f.label :coupon_codes %>
+      <%= f.file_field :coupon_codes %>
+    <% end %>
+
+    <%= f.field_container :promotions do %>
+      <%= f.label :promotion_id, Spree.t(:promotion) %>
+      <%= f.collection_select(:promotion_id, Spree::Promotion.for_campaigns, :id, :name, { :include_blank => Spree.t('match_choices.none') }, { :class => 'select2' }) %>
+      <%= f.error_message_on :promotion %>
+    <% end %>
+  </div>
+</div>

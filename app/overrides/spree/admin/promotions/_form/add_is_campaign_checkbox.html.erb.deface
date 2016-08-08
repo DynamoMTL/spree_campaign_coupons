@@ -1,0 +1,5 @@
+<!-- insert_bottom '#general_fields' -->
+<%= f.field_container :is_campaign do %>
+  <%= f.check_box :is_campaign %>
+  <%= f.label :is_campaign %>
+<% end %>

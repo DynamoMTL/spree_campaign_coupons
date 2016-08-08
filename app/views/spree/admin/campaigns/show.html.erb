@@ -1,0 +1,24 @@
+<% content_for :page_title do %>
+  <%= @campaign.title %>
+<% end %>
+
+<%= render 'spree/admin/shared/promotion_sub_menu' %>
+
+
+<pre>
+  TODO:
+  Show stats, like number used, revenue, available coupons etc.
+  Discuss the need for the list of coupons.
+</pre>
+
+<!-- <table class="index">
+  <thead>
+    <tr>
+      <th class="align-left">Code</th>
+      <th class="align-left">Used?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render :partial => "coupons", :collection => @campaign.coupons, :as => :coupon %>
+  </tbody>
+</table> -->
