@@ -1,7 +1,6 @@
 class Spree::Campaign < ActiveRecord::Base
   has_many :coupons
   belongs_to :promotion
-  after_save :process_coupon_codes_file
 
   def coupon_codes
   end
@@ -13,15 +12,16 @@ class Spree::Campaign < ActiveRecord::Base
   def coupon_codes=(uploaded_coupons_file)
     return unless uploaded_coupons_file.present?
     File.open(uploaded_coupons_file.tempfile, "rb", encoding: 'ISO-8859-1') do |file|
-      @coupons = file.readlines
+      process_coupon_codes_file(file.readlines)
     end
   end
 
   private
 
-  def process_coupon_codes_file
-    return true unless @coupons.present?
-    update_attribute(:coupons_processing, true)
-    ProcessCoupons.perform_async(id, @coupons)
+  def process_coupon_codes_file(coupon_codes)
+    return true unless coupon_codes.present?
+    coupons << coupon_codes.map { |code| Spree::Coupon.create(code: code.strip) }
+    update(coupons_processing: true)
+    ProcessCoupons.perform_async(id, coupon_codes)
   end
 end
