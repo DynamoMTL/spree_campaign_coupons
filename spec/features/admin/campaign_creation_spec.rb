@@ -14,7 +14,6 @@ describe "Promotion campaigns", :type => :feature do
     end
 
     it "adds a new campaign with the promotion" do
-      skip "fixing"
       click_link "New Campaign"
       fill_in "Title", with: "Printed Coupons April 2015"
       select2 "Promo", :from => "Promotion"
