@@ -5,8 +5,8 @@ class Spree::Coupon < ActiveRecord::Base
 
   validates :code, presence: true, uniqueness: true
 
-  def used!(order)
-    update(order: order, used: true)
+  def used!
+    update(used: true)
   end
 
   def self.by_code(code)

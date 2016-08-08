@@ -17,7 +17,7 @@ describe "Apply Campaign Coupon", type: :feature, js: true do
 
   context "will not apply the promotion" do
     it "with an already used coupon code" do
-      coupon_code.used!(Spree::Order.first)
+      coupon_code.used!
 
       fill_in "order_coupon_code", :with => "campaign12"
       click_button "Save and Continue"

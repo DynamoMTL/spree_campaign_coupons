@@ -9,12 +9,12 @@ describe Spree::Coupon, type: :model do
     end
   end
 
-  describe "#assign" do
-    it "will assign the order to the coupon_code"
-  end
-
   describe "#used" do
     it "will mark the coupon_code as used when order is complete"
+  end
+
+  describe "order is assigned" do
+    it "will assign the order to the coupon_code"
   end
 
 end

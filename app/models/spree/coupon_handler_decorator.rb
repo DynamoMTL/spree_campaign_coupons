@@ -4,9 +4,11 @@ Spree::PromotionHandler::Coupon.class_eval do
   def apply
    if order.coupon_code.present?
       @coupon = Spree::Coupon.by_code(order.coupon_code.strip.downcase)
-      if @coupon && @coupon.used?
+      if campaign_coupon_used?
         set_error_code :coupon_code_already_used
       else
+        assign_order_to_campaign_coupon
+
         if promotion.present? && promotion.actions.exists?
           handle_present_promotion(promotion)
         else
@@ -14,7 +16,7 @@ Spree::PromotionHandler::Coupon.class_eval do
             set_error_code :coupon_code_expired
           else
             set_error_code :coupon_code_not_found
-          end          
+          end
         end
       end
     end
@@ -35,7 +37,7 @@ Spree::PromotionHandler::Coupon.class_eval do
       end
     }
     if discount && discount.eligible
-      @coupon.used!(order) if @coupon
+      @coupon.used! if @coupon
 
       order.update_totals
       order.persist_totals
@@ -52,4 +54,13 @@ Spree::PromotionHandler::Coupon.class_eval do
     end
   end
 
+  private
+
+  def campaign_coupon_used?
+    @coupon && @coupon.used?
+  end
+
+  def assign_order_to_campaign_coupon
+    @coupon.update(order: order) if @coupon
+  end
 end
