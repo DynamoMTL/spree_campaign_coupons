@@ -17,14 +17,10 @@ describe "Promotion campaigns", :type => :feature do
       click_link "New Campaign"
       fill_in "Title", with: "Printed Coupons April 2015"
       select2 "Promo", :from => "Promotion"
-      file_path = Rails.root + "../fixtures/coupon_codes.csv"
-      attach_file('Coupon codes', file_path)
       click_button "Create"
       within("tbody") do
         expect(page).to have_content("Printed Coupons April 2015")
         expect(page).to have_content("Promo")
-        # 3 coupons created from the uploaded file.
-        expect(page).to have_content("3")
       end
     end
 
