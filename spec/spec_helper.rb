@@ -35,6 +35,8 @@ require 'spree/testing_support/url_helpers'
 # Requires factories defined in lib/spree_coupons/factories.rb
 require 'spree_coupons/factories'
 
+Capybara.default_wait_time = 15
+
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
 
